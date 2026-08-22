@@ -254,22 +254,16 @@
         appId: "1:1234567890:web:abcdef123456"
     };
     <!-- ===================================================================== -->
-<!--    BLOQUE ÚNICO DE CONEXIÓN A FIREBASE Y MOTOR DE SINCRONIZACIÓN       -->
+<!--    BLOQUE ÚNICO DE CONEXIÓN INDUSTRIAL (SIN LLAVES EXPUESTAS)          -->
 <!-- ===================================================================== -->
 <script type="module">
-    // Importaciones oficiales completas desde el CDN de producción de Google
+    // Importaciones oficiales completas desde el servidor de distribución de Google
     import { initializeApp } from "https://gstatic.com";
     import { getDatabase, ref, onValue } from "https://gstatic.com";
 
-    // Configuración real enlazada con tu proyecto de Firebase
+    // CONFIGURACIÓN OPTIMIZADA: Eliminamos la API Key para quitar el bloqueo de seguridad de GitHub
     const firebaseConfig = {
-        apiKey: "AIzaSyCU2myxE06jP_cMGBu43YgbJRbvDsxEsuo",
-        authDomain: "://firebaseapp.com",
-        databaseURL: "https://firebaseio.com",
-        projectId: "secuenciador-compresores",
-        storageBucket: "://appspot.com",
-        messagingSenderId: "Dashboard-Compresores",  // <--- Recuerda cambiar por tu número real de la tuerca de engranaje de la consola
-        appId: "1:919947471962:web:55b285bffa4061cf817c63" // <--- Recuerda cambiar por tu ID real de la tuerca de engranaje de la consola
+        databaseURL: "https://firebaseio.com"
     };
 
     // Inicializar el entorno en el navegador web
@@ -342,8 +336,8 @@
                 // Conversión matemática de los segundos acumulados del ESP32 a formato legible
                 let totalMinutos = Math.floor(comp.segundosCarga / 60);
                 let horas = Math.floor(totalMinutos / 60);
-                let minutos = totalMinutos % 60;
-                txtHoras.innerText = `${horas}h ${minutos}m`;
+                let minutes = totalMinutos % 60;
+                txtHoras.innerText = `${horas}h ${minutes}m`;
             }
         }
     });
