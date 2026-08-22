@@ -253,7 +253,106 @@
         messagingSenderId: "1234567890",
         appId: "1:1234567890:web:abcdef123456"
     };
+    <!-- Importación corregida con protocolo seguro formal para Celulares y Computadoras -->
+<script type="module">
+    import { initializeApp } from "https://gstatic.com";
+    import { getDatabase, ref, onValue } from "https://gstatic.com";
 
+    // CONFIGURACIÓN REAL SIN CONTENEDORES GENÉRICOS "TU"
+    // Busca estos datos exactos en la tuerca de engranaje (Configuración de proyecto) en tu consola Firebase
+    const firebaseConfig = {
+        apiKey: "AIzaSyCU2myxE06jP_cMGBu43YgbJRbvDsxEsuo",
+        authDomain: "://firebaseapp.com",
+        databaseURL: "https://firebaseio.com",
+        projectId: "secuenciador-compresores",
+        storageBucket: "://appspot.com",
+        
+        // =====================================================================
+        // REEMPLAZA ESTOS DOS NÚMEROS CON LOS REALES DE TU APLICACIÓN WEB:
+        // =====================================================================
+        messagingSenderId: "Dashboard-Compresores", 
+        appId: "1:919947471962:web:55b285bffa4061cf817c63"
+        // =====================================================================
+    };
+    // Escucha directa de telemetría a través del canal libre de la base de datos
+    const monitoreoRef = ref(db, 'compresores_control/monitoreo');
+
+    onValue(monitoreoRef, (snapshot) => {
+        const datos = snapshot.val();
+        if (datos) {
+            
+            // 1. Estatus del Sistema (Pantalla 1)
+            document.getElementById('txt-presion').innerText = datos.presion.toFixed(1);
+            
+            const txtPerfil = document.getElementById('txt-perfil');
+            txtPerfil.innerText = datos.modo_secuenciador === "RUN" ? "RUN-ON" : "SYSTEM-OFF";
+            txtPerfil.className = datos.modo_secuenciador === "RUN" ? "badge run-on" : "badge system-off";
+
+            const txtModo = document.getElementById('txt-modo');
+            txtModo.innerText = datos.modoAuto ? "AUTO" : "MAN";
+            txtModo.className = datos.modoAuto ? "badge auto" : "badge manual";
+
+            document.getElementById('txt-secuencia').innerText = datos.secuencia_formato; 
+
+            const txtStall = document.getElementById('txt-stall');
+            txtStall.innerText = datos.anti_stall_activo ? "ON" : "OFF";
+            txtStall.className = datos.anti_stall_activo ? "badge stall-active" : "badge stall-inactive";
+
+            // 2. Parámetros de Operación (Pantalla 2)
+            document.getElementById('sp-max').innerText = datos.sp.max.toFixed(1) + " BAR";
+            document.getElementById('sp-lider').innerText = datos.sp.lider.toFixed(1) + " BAR";
+            document.getElementById('sp-seg1').innerText = datos.sp.seg1.toFixed(1) + " BAR";
+            document.getElementById('sp-seg2').innerText = datos.sp.seg2.toFixed(1) + " BAR";
+
+            // 3. Control de Tarjetas Locales y Horómetros (Pantallas 1 y 3)
+            for (let i = 1; i <= 3; i++) {
+                const comp = datos.compresores[`C${i}`];
+                if (!comp) continue;
+
+                const badgeEstado = document.getElementById(`badge-estado-c${i}`);
+                const txtPct = document.getElementById(`pct-c${i}`);
+                const txtHoras = document.getElementById(`horas-c${i}`);
+                const borderTiempo = document.getElementById(`border-t-c${i}`);
+
+                if (!comp.on) {
+                    badgeEstado.innerText = "OFF";
+                    badgeEstado.style.background = "#2c3e50";
+                    badgeEstado.style.color = "var(--color-off)";
+                    borderTiempo.style.borderLeftColor = "var(--color-off)";
+                    txtPct.innerText = "Inactivo";
+                } else {
+                    if (comp.carga) {
+                        badgeEstado.innerText = "CARGA";
+                        badgeEstado.style.background = "var(--color-on)";
+                        badgeEstado.style.color = "#000000";
+                        borderTiempo.style.borderLeftColor = "var(--color-on)";
+                        txtPct.innerText = comp.porcentajeCiclo.toFixed(0) + "%";
+                    } else {
+                        badgeEstado.innerText = "VACIO";
+                        badgeEstado.style.background = "var(--color-vacio)";
+                        badgeEstado.style.color = "#000000";
+                        borderTiempo.style.borderLeftColor = "var(--color-vacio)";
+                        txtPct.innerText = comp.porcentajeCiclo.toFixed(0) + "%";
+                    }
+                }
+
+                // Conversión de segundos crudos del ESP32 a formato legible
+                let totalMinutos = Math.floor(comp.segundosCarga / 60);
+                let horas = Math.floor(totalMinutos / 60);
+                let minutos = totalMinutos % 60;
+                txtHoras.innerText = `${horas}h ${minutos}m`;
+            }
+        }
+    });
+</script>
+</body>
+</html>
+
+    // Inicializar el sistema en el navegador
+    const app = initializeApp(firebaseConfig);
+    const db = getDatabase(app);
+
+    
     // Inicializar la conexión con el servidor
     const app = initializeApp(firebaseConfig);
     const db = getDatabase(app);
