@@ -236,40 +236,24 @@
         </div>
     </div>
 </div>
-<!-- Las etiquetas de cierre y el Script Firebase continúan en la Parte 2 -->
-<!-- Importación de módulos oficiales del SDK de Firebase (Configuración Solo Monitoreo) -->
-<script type="module">
-    import { initializeApp } from "https://gstatic.com";
-    import { getDatabase, ref, onValue } from "https://gstatic.com";
-
-    // 1. CONFIGURACIÓN DE CREDENCIALES DE TU PROYECTO FIREBASE
-    // Recuerda colocar aquí las claves provistas por la consola web de Firebase
-    const firebaseConfig = {
-        authDomain: "secuenciador-compresores.firebaseapp.com",
-        databaseURL: "https://secuenciador-compresores-default-rtdb.firebaseio.com",
-        projectId: "secuenciador-compresores",
-        storageBucket: "secuenciador-compresores.appspot.com",
-        messagingSenderId: "Dashboard-Compresores",
-        appId: "1:919947471962:web:55b285bffa4061cf817c63"
-    };
-    <!-- ===================================================================== -->
-<!--    BLOQUE ÚNICO DE CONEXIÓN INDUSTRIAL (RUTAS OFICIALES COMPLETAS)     -->
+<!-- ===================================================================== -->
+<!--    BLOQUE ÚNICO DE CONEXIÓN INDUSTRIAL (RUTAS COMPLETAS OFICIALES)     -->
 <!-- ===================================================================== -->
 <script type="module">
-    // Importaciones oficiales completas desde el CDN de producción de Google
+    // 1. IMPORTACIONES EN RUTAS COMPLETAS: Descargan los archivos reales de Google Firebase
     import { initializeApp } from "https://gstatic.com";
     import { getDatabase, ref, onValue } from "https://gstatic.com";
 
-    // Configuración segura sin API Key para evitar bloqueos de seguridad de GitHub
+    // 2. CONFIGURACIÓN SIN CLAVES EXPUESTAS: Evita bloqueos de seguridad de GitHub
     const firebaseConfig = {
-        databaseURL: "https://secuenciador-compresores-default-rtdb.firebaseio.com"
+        databaseURL: "https://firebaseio.com"
     };
 
     // Inicializar el entorno en el navegador web
     const app = initializeApp(firebaseConfig);
     const db = getDatabase(app);
 
-    // Enlace de escucha directa al nodo de telemetría del ESP32
+    // 3. ENLACE DE ESCUCHA DIRECTA EN TIEMPO REAL
     const monitoreoRef = ref(db, 'compresores_control/monitoreo');
 
     onValue(monitoreoRef, (snapshot) => {
