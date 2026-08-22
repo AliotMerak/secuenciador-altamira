@@ -254,14 +254,14 @@
         appId: "1:1234567890:web:abcdef123456"
     };
     <!-- ===================================================================== -->
-<!--    BLOQUE ÚNICO DE CONEXIÓN INDUSTRIAL (SIN LLAVES EXPUESTAS)          -->
+<!--    BLOQUE ÚNICO DE CONEXIÓN INDUSTRIAL (RUTAS OFICIALES COMPLETAS)     -->
 <!-- ===================================================================== -->
 <script type="module">
-    // Importaciones oficiales completas desde el servidor de distribución de Google
+    // Importaciones oficiales completas desde el CDN de producción de Google
     import { initializeApp } from "https://gstatic.com";
     import { getDatabase, ref, onValue } from "https://gstatic.com";
 
-    // CONFIGURACIÓN OPTIMIZADA: Eliminamos la API Key para quitar el bloqueo de seguridad de GitHub
+    // Configuración segura sin API Key para evitar bloqueos de seguridad de GitHub
     const firebaseConfig = {
         databaseURL: "https://firebaseio.com"
     };
@@ -336,8 +336,8 @@
                 // Conversión matemática de los segundos acumulados del ESP32 a formato legible
                 let totalMinutos = Math.floor(comp.segundosCarga / 60);
                 let horas = Math.floor(totalMinutos / 60);
-                let minutes = totalMinutos % 60;
-                txtHoras.innerText = `${horas}h ${minutes}m`;
+                let minutos = totalMinutos % 60;
+                txtHoras.innerText = `${horas}h ${minutos}m`;
             }
         }
     });
