@@ -236,15 +236,11 @@
         </div>
     </div>
 <!-- ===================================================================== -->
-<!--    BLOQUE ÚNICO DE CONEXIÓN INDUSTRIAL (VERSIÓN GLOBAL CORREGIDA)     -->
+<!--    BLOQUE ÚNICO DE CONEXIÓN INDUSTRIAL (VERSIÓN 8 - MÁXIMA COMPATIBILIDAD) -->
 <!-- ===================================================================== -->
-<!-- 1. Carga directa de librerías oficiales de Google en formato global -->
-<!-- NOTA MANUAL: Si ves las líneas inferiores recortadas, la dirección de origen (src) debe ser exactamente: -->
-<!-- Línea de App:     https://gstatic.com -->
-<!-- Línea de Database: https://gstatic.com -->
-
-<script src="https://gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
-<script src="https://gstatic.com/firebasejs/10.7.1/firebase-database-compat.js"></script>
+<!-- 1. Carga de librerías globales clásicas (Libres de bloqueos en celulares) -->
+<script src="https://gstatic.com/firebasejs/10.7.1/firebase-app.js"></script>
+<script src="https://gstatic.com/firebasejs/10.7.1/firebase-database.js"></script>
 
 <script>
     // 2. CONFIGURACIÓN COMPATIBLE (Usa tu URL de Realtime Database)
@@ -252,7 +248,7 @@
         databaseURL: "https://secuenciador-compresores-default-rtdb.firebaseio.com"
     };
 
-    // Inicializar Firebase usando el método global clásico (compat)
+    // Inicializar Firebase usando el método de la Versión 8
     firebase.initializeApp(firebaseConfig);
     const db = firebase.database();
 
