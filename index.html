@@ -236,28 +236,26 @@
         </div>
     </div>
 <!-- ===================================================================== -->
-<!--    BLOQUE ÚNICO DE CONEXIÓN INDUSTRIAL (RUTAS COMPLETAS GOOGLE)       -->
+<!--    BLOQUE ÚNICO DE CONEXIÓN INDUSTRIAL (VERSIÓN GLOBAL SIN BLOQUEOS)  -->
 <!-- ===================================================================== -->
-<script type="module">
-    // 1. IMPORTACIONES CON RUTAS COMPLETAS: Descargan los archivos reales de Google Firebase
-    // Nota: Si el sistema recorta el texto, la ruta completa debe llevar al final: /firebasejs/10.7.1/firebase-app.js
-    import { initializeApp } from "https://gstatic.com/firebasejs/10.7.1/firebase-app.js";
-    // Nota: Si el sistema recorta el texto, la ruta completa debe llevar al final: /firebasejs/10.7.1/firebase-database.js
-    import { getDatabase, ref, onValue } from "https://gstatic.com/firebasejs/10.7.1/firebase-database.js";
+<!-- 1. Carga directa de librerías de Google en formato global -->
+<script src="https://gstatic.com"></script>
+<script src="https://gstatic.com"></script>
 
-    // 2. CONFIGURACIÓN SIN CLAVES EXPUESTAS: Conexión directa a tu base de datos pública
+<script>
+    // 2. CONFIGURACIÓN COMPATIBLE (Sin llaves expuestas para GitHub)
     const firebaseConfig = {
         databaseURL: "https://secuenciador-compresores-default-rtdb.firebaseio.com"
     };
 
-    // Inicializar el entorno en el navegador web
-    const app = initializeApp(firebaseConfig);
-    const db = getDatabase(app);
+    // Inicializar Firebase usando el método global clásico
+    firebase.initializeApp(firebaseConfig);
+    const db = firebase.database();
 
     // 3. ENLACE DE ESCUCHA DIRECTA EN TIEMPO REAL
-    const monitoreoRef = ref(db, 'compresores_control/monitoreo');
+    const monitoreoRef = db.ref('compresores_control/monitoreo');
 
-    onValue(monitoreoRef, (snapshot) => {
+    monitoreoRef.on('value', (snapshot) => {
         const datos = snapshot.val();
         if (datos) {
             
