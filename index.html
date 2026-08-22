@@ -257,19 +257,19 @@
 <!--    BLOQUE ÚNICO DE CONEXIÓN A FIREBASE Y MOTOR DE SINCRONIZACIÓN       -->
 <!-- ===================================================================== -->
 <script type="module">
-    // Importaciones oficiales y completas con el CDN de producción (Corrige error de carga)
+    // Importaciones oficiales completas desde el CDN de producción de Google
     import { initializeApp } from "https://gstatic.com";
     import { getDatabase, ref, onValue } from "https://gstatic.com";
 
-    // Tu configuración real sincronizada con tu proyecto de Firebase
+    // Configuración real enlazada con tu proyecto de Firebase
     const firebaseConfig = {
         apiKey: "AIzaSyCU2myxE06jP_cMGBu43YgbJRbvDsxEsuo",
         authDomain: "://firebaseapp.com",
         databaseURL: "https://firebaseio.com",
         projectId: "secuenciador-compresores",
         storageBucket: "://appspot.com",
-        messagingSenderId: "Dashboard-Compresores", // <--- Cambiar por tu número real de la consola
-        appId: "1:919947471962:web:55b285bffa4061cf817c63" // <--- Cambiar por tu ID real de la consola
+        messagingSenderId: "Dashboard-Compresores",  // <--- Recuerda cambiar por tu número real de la tuerca de engranaje de la consola
+        appId: "1:919947471962:web:55b285bffa4061cf817c63" // <--- Recuerda cambiar por tu ID real de la tuerca de engranaje de la consola
     };
 
     // Inicializar el entorno en el navegador web
