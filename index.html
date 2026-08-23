@@ -243,9 +243,8 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/firebase/8.10.1/firebase-database.js"></script>
 
 <script>
-    // 2. CONFIGURACIÓN INDUSTRIAL DEFINITIVA (Validada para Celular y WhatsApp)
+        // 2. CONFIGURACIÓN INDUSTRIAL DEFINITIVA
     const firebaseConfig = {
-        // Tu API Key real armada con truco para saltar bloqueos de seguridad del teléfono
         apiKey: "AIzaSyCU2myxE06jP_cMGBu43YgbJRbvDsxEsuo",
         databaseURL: "https://secuenciador-compresores-default-rtdb.firebaseio.com"
     };
@@ -254,14 +253,14 @@
     firebase.initializeApp(firebaseConfig);
     const db = firebase.database();
 
-    // Escucha directa del nodo de monitoreo en tiempo real
+    // 3. ENLACE DE ESCUCHA DIRECTA EN TIEMPO REAL
     const monitoreoRef = db.ref('compresores_control/monitoreo');
 
     monitoreoRef.on('value', (snapshot) => {
         const datos = snapshot.val();
         if (datos) {
             
-            // PANTALLA 1: ESTATUS DEL SISTEMA
+            // PANTALLA 1: ESTATUS DEL SISTEMA (Bloque izquierdo de tu HMI)
             document.getElementById('txt-presion').innerText = datos.presion.toFixed(1);
             
             const txtPerfil = document.getElementById('txt-perfil');
@@ -278,13 +277,13 @@
             txtStall.innerText = datos.anti_stall_activo ? "ON" : "OFF";
             txtStall.className = datos.anti_stall_activo ? "badge stall-active" : "badge stall-inactive";
 
-            // PANTALLA 2: PARÁMETROS DE OPERACIÓN (SET POINTS)
+            // PANTALLA 2: PARÁMETROS DE OPERACIÓN (Bloque central de Set Points)
             document.getElementById('sp-max').innerText = datos.sp.max.toFixed(1) + " BAR";
             document.getElementById('sp-lider').innerText = datos.sp.lider.toFixed(1) + " BAR";
             document.getElementById('sp-seg1').innerText = datos.sp.seg1.toFixed(1) + " BAR";
             document.getElementById('sp-seg2').innerText = datos.sp.seg2.toFixed(1) + " BAR";
 
-            // PANTALLA 1 Y 3: COMPRESORES INDIVIDUALES Y TIEMPOS
+            // PANTALLA 1 Y 3: TARJETAS DINÁMICAS E HISTORIAL DE TIEMPOS
             for (let i = 1; i <= 3; i++) {
                 const comp = datos.compresores[`C${i}`];
                 if (!comp) continue;
@@ -301,6 +300,7 @@
                     borderTiempo.style.borderLeftColor = "var(--color-off)";
                     txtPct.innerText = "Inactivo";
                 } else {
+                    // Actualización de porcentajes de aporte
                     txtPct.innerText = comp.porcentajeCiclo.toFixed(0) + "%";
 
                     if (comp.carga) {
@@ -316,7 +316,7 @@
                     }
                 }
 
-                // Conversión matemática de segundos del ESP32 a formato Xh Ym
+                // Conversión matemática de los segundos acumulados del ESP32 a formato legible
                 let totalMinutos = Math.floor(comp.segundosCarga / 60);
                 let horas = Math.floor(totalMinutos / 60);
                 let minutos = totalMinutos % 60;
