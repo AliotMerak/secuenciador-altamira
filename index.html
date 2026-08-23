@@ -236,28 +236,30 @@
         </div>
     </div>
 <!-- ===================================================================== -->
-<!--    BLOQUE ÚNICO INDUSTRIAL (BYPASS DE INYECCIÓN POR SERVIDOR DIRECTO) -->
+<!--    BLOQUE ÚNICO INDUSTRIAL (SISTEMA DE MONITOREO ESTABLE)             -->
 <!-- ===================================================================== -->
-<!-- El motor nativo de Firebase se ejecuta localmente para burlar bloqueos 4G/5G -->
+<!-- 1. Carga de librerías oficiales de Google Firebase (Versión 8 Clásica) -->
+<script src="https://gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
+<script src="https://gstatic.com/firebasejs/10.7.1/firebase-database-compat.js"></script>
+
 <script>
-!function(e,t){"object"==typeof exports&&"undefined"!=typeof module?module.exports=t():"function"==typeof define&&define.amd?define(t):(e=e||self).firebase=t()}(this,function(){"use strict";var r=function(e){return"object"==typeof e&&null!==e},o=function(e){return"function"==typeof e};function i(e){return"object"==typeof e&&null!==e&&"object"==typeof e.window}var n=function(){return"undefined"!=typeof self&&"object"==typeof self&&self.navigator};function c(e){return"string"==typeof e}function d(e){return"number"==typeof e}var l,h=function(e){return o(e.then)},p=function(e){return"undefined"!=typeof ArrayBuffer&&e instanceof ArrayBuffer},a=function(e){try{return"undefined"!=typeof Uint8Array&&e instanceof Uint8Array}catch(e){return!1}};function f(e){return void 0===e}function u(e){return null===e}function m(e){return"boolean"==typeof e}var _=function(){return"undefined"!=typeof window&&"object"==typeof window&&window.document},s=function(){return"undefined"!=typeof indexedDB&&"object"==typeof indexedDB},g=function(){return"undefined"!=typeof window&&"object"==typeof window&&"undefined"!=typeof window.localStorage&&"object"==typeof window.localStorage};function y(e){return new Promise(function(t,n){var r=new XMLHttpRequest;r.open("GET",e),r.onload=function(){200<=r.status&&r.status<300?t(r.responseText):n(new Error(r.statusText))},r.onerror=function(){n(new Error("Network Error"))},r.send()})}return l={initialize:function(e){var t=this,n=e.databaseURL;if(!n)throw new Error("Missing databaseURL");this.dbUrl=n,this.listeners=[],this.socket=null,this.connect=function(){if(!t.socket||3===t.socket.readyState){var e=n.replace("https://","wss://")+"/.ws?v=5";t.socket=new WebSocket(e),t.socket.onmessage=function(e){var n=JSON.parse(e.data);if("d"===n.t&&n.d&&n.d.b&&void 0!==n.d.b.d){var r=n.d.b.d;t.listeners.forEach(function(e){e(r)})}},t.socket.onopen=function(){var e={t:"c",d:{r:1,v:"5",a:"s",d:{}}};t.socket.send(JSON.stringify(e))},t.socket.onerror=function(){t.fallbackToHttp()},t.socket.onclose=function(){setTimeout(t.connect,5e3)}}},this.fallbackToHttp=function(){var e=function(){y(n+"/.json").then(function(e){var n=JSON.parse(e);t.listeners.forEach(function(e){e(n)}),setTimeout(e,3e3)}).catch(function(){setTimeout(e,5e3)})};e()},this.connect()},ref:function(e){var t=this;return{on:function(e,n){t.listeners.push(n),t.connect()}}}},{initializeApp:function(e){return l.initialize(e),{database:function(){return l}}}}});
-</script>
-<!-- El motor de base de datos e interfaz continúa en la Parte 2B -->
-    <script>
-    // 2. CONFIGURACIÓN COMPATIBLE CON EL MOTOR DE INYECCIÓN DIRECTA
+    // 2. CONFIGURACIÓN INDUSTRIAL DE CONEXIÓN DIRECTA EN TIEMPO REAL
     const firebaseConfig = {
+        apiKey: "AIzaSyCU2myxE06jP_cMGBu43YgbJRbvDsxEsuo",
         databaseURL: "https://secuenciador-compresores-default-rtdb.firebaseio.com"
     };
 
-    // Inicializar el cliente inyectado nativo
-    const app = firebase.initializeApp(firebaseConfig);
-    const db = app.database();
+    // Inicializar el entorno oficial de Firebase
+    firebase.initializeApp(firebaseConfig);
+    const db = firebase.database();
 
     // 3. ENLACE DE ESCUCHA DIRECTA EN TIEMPO REAL
     const monitoreoRef = db.ref('compresores_control/monitoreo');
 
-    monitoreoRef.on('value', (datos) => {
+    monitoreoRef.on('value', (snapshot) => {
+        const datos = snapshot.val();
         if (datos) {
+            
             // PANTALLA 1: ESTATUS DEL SISTEMA (Bloque izquierdo de tu HMI)
             document.getElementById('txt-presion').innerText = datos.presion.toFixed(1);
             
