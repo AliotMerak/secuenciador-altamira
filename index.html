@@ -236,27 +236,27 @@
         </div>
     </div>
 <!-- ===================================================================== -->
-<!--    BLOQUE ÚNICO EN MODO MÓDULO (APROBADO PARA CARGA EN CELULARES)     -->
+<!--    BLOQUE ÚNICO INDUSTRIAL (VERSIÓN 8 DE MÁXIMA COMPATIBILIDAD)        -->
 <!-- ===================================================================== -->
-<script type="module">
-    // 1. IMPORTACIONES CON ENLACES COMPLETOS OFICIALES DE GOOGLE
-    import { initializeApp } from "https://gstatic.com/firebasejs/10.7.1/firebase-app-compat.js";
-    import { getDatabase, ref, onValue } from "https://gstatic.com/firebasejs/10.7.1/firebase-database-compat.js";
+<!-- 1. Descarga directa de archivos de Google con subdominio correcto -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/firebase/8.10.1/firebase-app.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/firebase/8.10.1/firebase-database.js"></script>
 
-    // 2. CONFIGURACIÓN INDUSTRIAL EXCLUSIVA DE TU PROYECTO DE ALTAMIRA
+<script>
+    // 2. CONFIGURACIÓN COMPATIBLE DE TU PROYECTO
     const firebaseConfig = {
         apiKey: "AIzaSyCU2myxE06jP_cMGBu43YgbJRbvDsxEsuo",
         databaseURL: "https://secuenciador-compresores-default-rtdb.firebaseio.com"
     };
 
-    // Inicializar el entorno seguro de Firebase
-    const app = initializeApp(firebaseConfig);
-    const db = getDatabase(app);
+    // Inicializar Firebase usando la sintaxis nativa de la Versión 8
+    firebase.initializeApp(firebaseConfig);
+    const db = firebase.database();
 
     // 3. ENLACE DE ESCUCHA DIRECTA EN TIEMPO REAL
-    const monitoreoRef = ref(db, 'compresores_control/monitoreo');
+    const monitoreoRef = db.ref('compresores_control/monitoreo');
 
-    onValue(monitoreoRef, (snapshot) => {
+    monitoreoRef.on('value', (snapshot) => {
         const datos = snapshot.val();
         if (datos) {
             
