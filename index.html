@@ -243,22 +243,14 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/firebase/8.10.1/firebase-database.js"></script>
 
 <script>
-    // 2. CONFIGURACIÓN INDUSTRIAL PROTEGIDA (Evita bloqueos de antenas de datos)
+    // 2. CONFIGURACIÓN INDUSTRIAL DE LECTURA DIRECTA
     const firebaseConfig = {
         apiKey: "AIzaSyCU2myxE06jP_cMGBu43YgbJRbvDsxEsuo",
         databaseURL: "https://secuenciador-compresores-default-rtdb.firebaseio.com"
     };
 
-    // Inicializar Firebase e invocar el pase de lista seguro (Elimina el ERR_TIME_OUT)
+    // Inicializar el motor nativo de Firebase sin bloqueos de Auth
     firebase.initializeApp(firebaseConfig);
-    
-    // Forzamos un inicio de sesión anónimo inmediato para identificarnos ante Google
-    firebase.auth().signInAnonymously().then(() => {
-        console.log("Conexión móvil autorizada por Google.");
-    }).catch((error) => {
-        console.error("Error de autenticación:", error.message);
-    });
-
     const db = firebase.database();
 
     // 3. ENLACE DE ESCUCHA DIRECTA EN TIEMPO REAL
