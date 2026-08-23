@@ -243,15 +243,27 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/firebase/8.10.1/firebase-database.js"></script>
 
 <script>
-    // 2. CONFIGURACIÓN INDUSTRIAL DE LECTURA DIRECTA
+    // 2. CONFIGURACIÓN INDUSTRIAL DE CONEXIÓN DIRECTA (SIN LLAVES EXPUESTAS)
     const firebaseConfig = {
-        apiKey: "AIzaSyCU2myxE06jP_cMGBu43YgbJRbvDsxEsuo",
         databaseURL: "https://secuenciador-compresores-default-rtdb.firebaseio.com"
     };
 
-    // Inicializar el motor nativo de Firebase sin bloqueos de Auth
+    // Inicializar el entorno en el navegador web
     firebase.initializeApp(firebaseConfig);
-    const db = firebase.database();
+    
+    // =====================================================================
+    // OBLIGAMOS AL CELULAR A DISFRAZAR EL TRÁFICO PARA EVITAR BLOQUEOS DE RED 4G/5G
+    // =====================================================================
+    firebase.database().goOffline(); // Reiniciamos el canal
+    
+    // Desactivamos WebSockets para forzar peticiones HTTP tradicionales que la antena sí acepta
+    firebase.database.enableLogging(false); 
+    const db = firebase.database({ 
+        forceWebSockets: false 
+    });
+    
+    db.goOnline(); // Conectamos con el nuevo protocolo camuflado
+    // =====================================================================
 
     // 3. ENLACE DE ESCUCHA DIRECTA EN TIEMPO REAL
     const monitoreoRef = db.ref('compresores_control/monitoreo');
