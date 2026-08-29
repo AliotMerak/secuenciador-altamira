@@ -167,18 +167,22 @@
                     <span id="txt-perfil" class="badge system-off">SYSTEM-OFF</span>
                     <div style="margin-top: 8px;">
                         <span id="txt-modo" class="badge auto">MAN</span>
-                        </div>
+                    </div>
                 </div>
             </div>
             
-            <div class="info-row" style="border-top: 1px solid #2c3e50; padding-top: 10px;">
+            <!-- RENGLÓN 1 DE ABAJO: SOLO SECUENCIA Y BOTÓN DE ALERTA -->
+            <div class="info-row" style="border-top: 1px solid #2c3e50; padding-top: 10px; margin-bottom: 8px;">
                 <span>SEQ ACT: <strong id="txt-secuencia" style="color: var(--text-yellow); font-size: 1.3rem;">- - -</strong></span>
                 <span>Anti-Stall: <span id="txt-stall" class="badge interstate">OFF</span></span>
-                <div class="info-row">
-                            <span>Tiempo:</span>
-                            <span id="txt-stall-tiempo" style="color: var(--color-vacio); font-weight: bold;">--.- min</span>
-                        </div>
             </div>
+
+            <!-- RENGLÓN 2 DE ABAJO: SU PROPIA CAJA PARA EL TIEMPO CONFIGURADO -->
+            <div class="info-row" style="padding-top: 2px;">
+                <span style="color: var(--text-muted); font-size: 0.9rem;">Parámetro de Red:</span>
+                <span style="font-size: 1rem; color: var(--text-yellow);">Tiempo: <strong id="txt-stall-tiempo" style="color: #f1c40f;">--.- min</strong></span>
+            </div>
+        </div>
 
             <!-- Fila de mini tarjetas simulando los botones inferiores de tu HMI -->
             <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-top: 15px;">
