@@ -157,12 +157,39 @@
     <h1>Secuenciador de Compresores de Altamira</h1>
 
     <div class="grid-dashboard">
-                        <!-- ===================================================================== -->
-    <!-- INTERFAZ HMI INDUSTRIAL RECONSTRUIDA (REJILLA DE 3 COLUMNAS SIMÉTRICAS)-->
+                            <!-- ===================================================================== -->
+    <!-- ESTILOS INTELIGENTES: RESPONSIVO PARA CELULAR (MEDIA QUERY)          -->
     <!-- ===================================================================== -->
-    <div class="main-layout" style="display: grid; grid-template-columns: 1.1fr 1fr 1fr; gap: 20px; max-width: 1200px; margin: 0 auto; padding: 10px;">
+    <style>
+        /* Estilo base para Computadora: 3 Columnas perfectas alineadas */
+        .hmi-grid-industrial {
+            display: grid;
+            grid-template-columns: 1.1fr 1fr 1fr;
+            gap: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 10px;
+        }
         
-        <!-- COLUMNA 1: MONITOR DINÁMICO Y BOTONES INFERIORES HMI -->
+        /* REGLA MÁGICA PARA CELULARES: Se activa automáticamente en pantallas móviles */
+        @media (max-width: 768px) {
+            .hmi-grid-industrial {
+                grid-template-columns: 1fr !important; /* Forza una sola columna vertical */
+                gap: 15px;
+                padding: 10px;
+            }
+            .info-row {
+                flex-direction: row !important; /* Mantiene la secuencia y el stall alineados en fila */
+            }
+        }
+    </style>
+
+    <!-- ===================================================================== -->
+    <!-- INTERFAZ HMI INDUSTRIAL CON RESPONSIVIDAD INTEGRADA                    -->
+    <!-- ===================================================================== -->
+    <div class="hmi-grid-industrial">
+        
+        <!-- COLUMNA 1: MONITOR DINÁMICO Y COMPRESORES (Caja unificada) -->
         <div style="display: flex; flex-direction: column; gap: 15px;">
             
             <!-- Tarjeta de Estatus de Presión y Alertas -->
@@ -189,10 +216,10 @@
                 </div>
             </div>
 
-            <!-- Fila Horizontal Compacta de los 3 Compresores (Cajas Grises Recuperadas) -->
-            <div style="display: flex; gap: 10px;">
+            <!-- Fila Horizontal Compacta de los 3 Compresores (Mantiene las 3 cajitas juntas siempre) -->
+            <div style="display: flex; gap: 10px; width: 100%;">
                 <!-- Compresor 1 -->
-                <div class="card-mini" id="border-t-c1" style="border-left: 4px solid var(--color-off); flex: 1; background: #1a252f; padding: 10px; border-radius: 4px; border: 1px solid #2c3e50;">
+                <div class="card-mini" id="border-t-c1" style="border-left: 4px solid var(--color-off); flex: 1; background: #1a252f; padding: 10px; border-radius: 4px; border: 1px solid #2c3e50; min-width: 0;">
                     <div style="font-size: 0.75rem; color: var(--text-muted); font-weight: bold; text-align: center; margin-bottom: 4px;">COMP. 1</div>
                     <div style="text-align: center; margin-bottom: 6px;">
                         <span id="badge-estado-c1" class="badge" style="background: #2c3e50; color: var(--color-off); font-weight: bold; padding: 3px 8px; font-size: 0.75rem;">OFF</span>
@@ -201,7 +228,7 @@
                 </div>
 
                 <!-- Compresor 2 -->
-                <div class="card-mini" id="border-t-c2" style="border-left: 4px solid var(--color-off); flex: 1; background: #1a252f; padding: 10px; border-radius: 4px; border: 1px solid #2c3e50;">
+                <div class="card-mini" id="border-t-c2" style="border-left: 4px solid var(--color-off); flex: 1; background: #1a252f; padding: 10px; border-radius: 4px; border: 1px solid #2c3e50; min-width: 0;">
                     <div style="font-size: 0.75rem; color: var(--text-muted); font-weight: bold; text-align: center; margin-bottom: 4px;">COMP. 2</div>
                     <div style="text-align: center; margin-bottom: 6px;">
                         <span id="badge-estado-c2" class="badge" style="background: #2c3e50; color: var(--color-off); font-weight: bold; padding: 3px 8px; font-size: 0.75rem;">OFF</span>
@@ -210,7 +237,7 @@
                 </div>
 
                 <!-- Compresor 3 -->
-                <div class="card-mini" id="border-t-c3" style="border-left: 4px solid var(--color-off); flex: 1; background: #1a252f; padding: 10px; border-radius: 4px; border: 1px solid #2c3e50;">
+                <div class="card-mini" id="border-t-c3" style="border-left: 4px solid var(--color-off); flex: 1; background: #1a252f; padding: 10px; border-radius: 4px; border: 1px solid #2c3e50; min-width: 0;">
                     <div style="font-size: 0.75rem; color: var(--text-muted); font-weight: bold; text-align: center; margin-bottom: 4px;">COMP. 3</div>
                     <div style="text-align: center; margin-bottom: 6px;">
                         <span id="badge-estado-c3" class="badge" style="background: #2c3e50; color: var(--color-off); font-weight: bold; padding: 3px 8px; font-size: 0.75rem;">OFF</span>
@@ -264,7 +291,8 @@
             </div>
         </div>
 
-    </div> <!-- CIERRE DE LA REJILLA PRINCIPAL (main-layout) -->
+    </div> <!-- CIERRE DE LA REJILLA PRINCIPAL (hmi-grid-industrial) -->
+
 
 <!-- ===================================================================== -->
 <!--    BLOQUE ÚNICO INDUSTRIAL (SISTEMA DE MONITOREO ESTABLE)             -->
