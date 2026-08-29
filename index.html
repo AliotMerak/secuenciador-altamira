@@ -157,7 +157,9 @@
     <h1>Secuenciador de Compresores de Altamira</h1>
 
     <div class="grid-dashboard">
-        <!-- PANTALLA 1: ESTATUS DEL SISTEMA -->
+                <!-- ===================================================================== -->
+        <!-- PANTALLA 1: ESTATUS DEL SISTEMA Y BOTONES INFERIORES HMI             -->
+        <!-- ===================================================================== -->
         <div class="card">
             <h2>Estatus del Sistema</h2>
             <div class="info-row">
@@ -171,48 +173,44 @@
                 </div>
             </div>
             
-            <!-- RENGLÓN 1 DE ABAJO: SOLO SECUENCIA Y BOTÓN DE ALERTA -->
-            <div class="info-row" style="border-top: 1px solid #2c3e50; padding-top: 10px; margin-bottom: 8px;">
-                <span>SEQ ACT: <strong id="txt-secuencia" style="color: var(--text-yellow); font-size: 1.3rem;">- - -</strong></span>
-                <span>Anti-Stall: <span id="txt-stall" class="badge interstate">OFF</span></span>
+            <!-- RENGLÓN 1: SECUENCIA ACTIVA Y BOTÓN INDICADOR ANTI-STALL -->
+            <div class="info-row" style="border-top: 1px solid #2c3e50; padding-top: 10px; margin-bottom: 6px;">
+                <span>SEQ ACT: <strong id="txt-secuencia" style="color: var(--text-yellow); font-size: 1.2rem;">- - -</strong></span>
+                <span style="font-size: 0.95rem;">Anti-Stall: <span id="txt-stall" class="badge interstate" style="padding: 3px 8px; font-size: 0.85rem;">OFF</span></span>
             </div>
 
-            <!-- RENGLÓN 2 DE ABAJO: SU PROPIA CAJA PARA EL TIEMPO CONFIGURADO -->
-            <div class="info-row" style="padding-top: 2px;">
-                <span style="color: var(--text-muted); font-size: 0.9rem;">Parámetro de Red:</span>
-                <span style="font-size: 1rem; color: var(--text-yellow);">Tiempo: <strong id="txt-stall-tiempo" style="color: #f1c40f;">--.- min</strong></span>
+            <!-- RENGLÓN 2: TEXTO COMPACTO PARA EL TIEMPO CONFIGURADO REMOTO -->
+            <div class="info-row" style="padding-top: 2px; margin-bottom: 2px;">
+                <span style="color: var(--text-muted); font-size: 0.85rem;">Ajuste Remoto:</span>
+                <span style="font-size: 0.9rem; color: var(--text-muted);">Tiempo: <strong id="txt-stall-tiempo" style="color: #f1c40f;">--.- min</strong></span>
             </div>
-        </div> <!-- <-- ESTA LLAVE CIERRA LA TARJETA PRINCIPAL -->
+        </div> <!-- CIERRE CORRECTO DE LA TARJETA DE ESTATUS DEL SISTEMA -->
 
-        <!-- CONTENEDOR DE COMPRESORES INDIVIDUALES -->
-        <div class="compresores-container" style="display: flex; gap: 15px; flex: 1;">
-            <!-- Mini Tarjeta Compresor 1 -->
-            <div class="card-mini" id="border-t-c1" style="border-left: 4px solid var(--color-off); flex: 1;">
-                <div style="font-size: 0.8rem; color: var(--text-muted); font-weight: bold; text-align: center; margin-bottom: 8px;">COMP. 1</div>
-                <div style="text-align: center; margin-bottom: 10px;">
-                    <span id="badge-estado-c1" class="badge" style="background: #2c3e50; color: var(--color-off); font-weight: bold; padding: 6px 16px;">OFF</span>
-                </div>
-                <div style="font-size: 0.85rem; text-align: center; color: var(--text-muted);">Ciclo: <strong id="pct-c1" style="color: #3498db;">Inactivo</strong></div>
+        <!-- MINI TARJETAS ORIGINALES DE LOS COMPRESORES (RESTAURACIÓN DE ESTILOS) -->
+        <div class="card-mini" id="border-t-c1" style="border-left: 4px solid var(--color-off);">
+            <div style="font-size: 0.8rem; color: var(--text-muted); font-weight: bold; text-align: center; margin-bottom: 6px;">COMP. 1</div>
+            <div style="text-align: center; margin-bottom: 8px;">
+                <span id="badge-estado-c1" class="badge" style="background: #2c3e50; color: var(--color-off); font-weight: bold; padding: 4px 12px; font-size: 0.85rem;">OFF</span>
             </div>
-
-            <!-- Mini Tarjeta Compresor 2 -->
-            <div class="card-mini" id="border-t-c2" style="border-left: 4px solid var(--color-off); flex: 1;">
-                <div style="font-size: 0.8rem; color: var(--text-muted); font-weight: bold; text-align: center; margin-bottom: 8px;">COMP. 2</div>
-                <div style="text-align: center; margin-bottom: 10px;">
-                    <span id="badge-estado-c2" class="badge" style="background: #2c3e50; color: var(--color-off); font-weight: bold; padding: 6px 16px;">OFF</span>
-                </div>
-                <div style="font-size: 0.85rem; text-align: center; color: var(--text-muted);">Ciclo: <strong id="pct-c2" style="color: #3498db;">Inactivo</strong></div>
-            </div>
-
-            <!-- Mini Tarjeta Compresor 3 -->
-            <div class="card-mini" id="border-t-c3" style="border-left: 4px solid var(--color-off); flex: 1;">
-                <div style="font-size: 0.8rem; color: var(--text-muted); font-weight: bold; text-align: center; margin-bottom: 8px;">COMP. 3</div>
-                <div style="text-align: center; margin-bottom: 10px;">
-                    <span id="badge-estado-c3" class="badge" style="background: #2c3e50; color: var(--color-off); font-weight: bold; padding: 6px 16px;">OFF</span>
-                </div>
-                <div style="font-size: 0.85rem; text-align: center; color: var(--text-muted);">Ciclo: <strong id="pct-c3" style="color: #3498db;">Inactivo</strong></div>
-            </div>
+            <div style="font-size: 0.8rem; text-align: center; color: var(--text-muted);">Ciclo: <strong id="pct-c1" style="color: #3498db;">Inactivo</strong></div>
         </div>
+
+        <div class="card-mini" id="border-t-c2" style="border-left: 4px solid var(--color-off);">
+            <div style="font-size: 0.8rem; color: var(--text-muted); font-weight: bold; text-align: center; margin-bottom: 6px;">COMP. 2</div>
+            <div style="text-align: center; margin-bottom: 8px;">
+                <span id="badge-estado-c2" class="badge" style="background: #2c3e50; color: var(--color-off); font-weight: bold; padding: 4px 12px; font-size: 0.85rem;">OFF</span>
+            </div>
+            <div style="font-size: 0.8rem; text-align: center; color: var(--text-muted);">Ciclo: <strong id="pct-c2" style="color: #3498db;">Inactivo</strong></div>
+        </div>
+
+        <div class="card-mini" id="border-t-c3" style="border-left: 4px solid var(--color-off);">
+            <div style="font-size: 0.8rem; color: var(--text-muted); font-weight: bold; text-align: center; margin-bottom: 6px;">COMP. 3</div>
+            <div style="text-align: center; margin-bottom: 8px;">
+                <span id="badge-estado-c3" class="badge" style="background: #2c3e50; color: var(--color-off); font-weight: bold; padding: 4px 12px; font-size: 0.85rem;">OFF</span>
+            </div>
+            <div style="font-size: 0.8rem; text-align: center; color: var(--text-muted);">Ciclo: <strong id="pct-c3" style="color: #3498db;">Inactivo</strong></div>
+        </div>
+
 
         <!-- PANTALLA 2: PARÁMETROS DE OPERACIÓN (SET POINTS) -->
         <div class="card">
