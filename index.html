@@ -167,6 +167,10 @@
                     <span id="txt-perfil" class="badge system-off">SYSTEM-OFF</span>
                     <div style="margin-top: 8px;">
                         <span id="txt-modo" class="badge auto">MAN</span>
+                        <div class="info-row">
+                            <span>Tiempo Configurado:</span>
+                            <span id="txt-stall-tiempo" style="color: var(--color-vacio); font-weight: bold;">--.- min</span>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -276,6 +280,7 @@
             const txtStall = document.getElementById('txt-stall');
             txtStall.innerText = datos.anti_stall_activo ? "ON" : "OFF";
             txtStall.className = datos.anti_stall_activo ? "badge stall-active" : "badge stall-inactive";
+            document.getElementById('txt-stall-tiempo').innerText = datos.anti_stall_tiempo.toFixed(1) + " min";
 
             // PANTALLA 2: PARÁMETROS DE OPERACIÓN (Bloque central de Set Points)
             document.getElementById('sp-max').innerText = datos.sp.max.toFixed(1) + " BAR";
